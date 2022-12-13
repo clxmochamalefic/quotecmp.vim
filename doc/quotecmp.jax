@@ -77,13 +77,13 @@ after
 please write it your .vimrc or init.vim
 
 ```init.vim
-command! InsertQuoteBack    call quotecmp#completion_quote('`')
-command! InsertQuoteSingle  call quotecmp#completion_quote("'")
-command! InsertQuoteDouble  call quotecmp#completion_quote('"')
+command! MyQuoteCompletionBack    call quotecmp#completion_quote('`')
+command! MyQuoteCompletionSingle  call quotecmp#completion_quote("'")
+command! MyQuoteCompletionDouble  call quotecmp#completion_quote('"')
 
-inoremap `` <Esc>:InsertQuoteBack<CR>
-inoremap '' <Esc>:InsertQuoteSingle<CR>
-inoremap "" <Esc>:InsertQuoteDouble<CR>
+inoremap `` <Esc>:MyQuoteCompletionBack<CR>
+inoremap '' <Esc>:MyQuoteCompletionSingle<CR>
+inoremap "" <Esc>:MyQuoteCompletionDouble<CR>
 ```
 
 `dein.toml` みたいに `.toml` で書いている場合はこんな感じに書きます
@@ -91,13 +91,13 @@ if you use `dein` and use `toml` for plugin manage, you can write below
 
 ```dein.toml
 hook_add = '''
-  command! InsertQuoteBack    call quotecmp#completion_quote('`')
-  command! InsertQuoteSingle  call quotecmp#completion_quote("'")
-  command! InsertQuoteDouble  call quotecmp#completion_quote('"')
+  command! MyQuoteCompletionBack    call quotecmp#completion_quote('`')
+  command! MyQuoteCompletionSingle  call quotecmp#completion_quote("'")
+  command! MyQuoteCompletionDouble  call quotecmp#completion_quote('"')
 
-  inoremap `` <Esc>:InsertQuoteBack<CR>
-  inoremap '' <Esc>:InsertQuoteSingle<CR>
-  inoremap "" <Esc>:InsertQuoteDouble<CR>
+  inoremap `` <Esc>:MyQuoteCompletionBack<CR>
+  inoremap '' <Esc>:MyQuoteCompletionSingle<CR>
+  inoremap "" <Esc>:MyQuoteCompletionDouble<CR>
 '''
 ```
 
