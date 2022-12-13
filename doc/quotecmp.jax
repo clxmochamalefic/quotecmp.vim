@@ -1,0 +1,130 @@
+*quotecmp.txt*	日本語ヘルプ
+
+Version : 1.0
+Author  : cocoalix
+License : MIT license  {{{
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+}}}
+
+==============================================================================
+目次						*quotecmp-contents*
+
+概要				|quotecmp-introduction|
+使い方				|quotecmp-usage|
+  設定例			  |quotecmp-preference-example|
+インターフェイス		|quotecmp-interface|
+  関数				  |quotecmp-functions|
+TODO				|quotecmp-todo|
+更新履歴			|quotecmp-changelog|
+
+
+==============================================================================
+概要						*quotecmp-introduction*
+
+*quotecmp* はなんかたぶんいい感じにクオートしてくれる感じのやつです
+*quotecmp* is quote any word you feels good probably
+
+最新版 / latest:
+https://github.com/cocoalix/quotecmp.vim
+
+
+==============================================================================
+使い方						*quotecmp-usage*
+
+下記の設定例のように設定を記述すると、同じクオート文字を二度入力することで任意のキーワードを任意のクオートで囲むことができます
+please write your vim preference file feel below (|quotecmp-preference-example|)
+if set the preference, this plugin exec quoting any word
+
+e.g.
+
+before
+
+```
+aaaa bbbb
+    ^
+    (cursor here)
+```
+
+after
+
+```
+``aaaa`` bbbb
+      ^
+      (cursor here)
+```
+
+
+------------------------------------------------------------------------------
+設定例						*quotecmp-preference-example*
+
+こんな感じで設定を書きます
+please write it your .vimrc or init.vim
+
+```init.vim
+command! InsertQuoteBack    call quotecmp#completion_quote('`')
+command! InsertQuoteSingle  call quotecmp#completion_quote("'")
+command! InsertQuoteDouble  call quotecmp#completion_quote('"')
+
+inoremap `` <Esc>:InsertQuoteBack<CR>
+inoremap '' <Esc>:InsertQuoteSingle<CR>
+inoremap "" <Esc>:InsertQuoteDouble<CR>
+```
+
+`dein.toml` みたいに `.toml` で書いている場合はこんな感じに書きます
+if you use `dein` and use `toml` for plugin manage, you can write below
+
+```dein.toml
+hook_add = '''
+  command! InsertQuoteBack    call quotecmp#completion_quote('`')
+  command! InsertQuoteSingle  call quotecmp#completion_quote("'")
+  command! InsertQuoteDouble  call quotecmp#completion_quote('"')
+
+  inoremap `` <Esc>:InsertQuoteBack<CR>
+  inoremap '' <Esc>:InsertQuoteSingle<CR>
+  inoremap "" <Esc>:InsertQuoteDouble<CR>
+'''
+```
+
+
+==============================================================================
+インターフェイス				*quotecmp-interface*
+
+------------------------------------------------------------------------------
+関数						*quotecmp-functions*
+
+						*quotecmp#completion_quote()*
+quotecmp#completion_quote({quote-character})
+
+
+==============================================================================
+TODO						*quotecmp-todo*
+
+軽く動く感じにしか作ってないのでめっちゃバグあると思います
+maybe, this plugin has many bugs, because i should not be hard test
+
+必要があればIssueください
+please issue on github if you needed
+
+
+==============================================================================
+更新履歴					*quotecmp-changelog*
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:
