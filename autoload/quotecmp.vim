@@ -10,14 +10,12 @@ function! quotecmp#completion_quote(quote_character) abort "{{{1
   echon 'insert to: backward prev space => H / forward => other key / cancel => <ESC> > / cancel and insert triple it => same quote (' . a:quote_character . ')'
   let l:input       = nr2char(getchar())
   let l:current_col = col('.')
-  let l:new_col     = col('.')
   let l:last_col    = col('$')
   let l:result      = v:false
 
   if l:input == "\e" "{{{1
     " <Esc> is cancel
     let l:result = s:cancel_completion(a:quote_character, 2)
-    echon 'canceled'
     "}}}
   elseif l:input ==? a:quote_character "{{{1
     " want triple same quote input
@@ -25,11 +23,11 @@ function! quotecmp#completion_quote(quote_character) abort "{{{1
     "}}}
   elseif l:input ==? 'h' "{{{1
     " backward
-    let l:result = s:backward_completion(a:quote_character, l:current_col, l:last_col)
+    let l:result = s:backward_completion(a:quote_character, l:current_col)
     "}}}
   else "{{{1
     " forward
-    let l:result = s:forward_completion(a:quote_character, l:current_col, l:last_col)
+    let l:result = s:forward_completion(a:quote_character, l:current_col)
   "}}}
   endif
 
@@ -41,7 +39,7 @@ function! quotecmp#completion_quote(quote_character) abort "{{{1
   " change mode to insert / 挿入モードに戻す
   execute "normal! l"
 
-  if l:current_col == l:last_col - 1 || l:new_col == l:last_col - 1
+  if l:current_col == l:last_col - 1
     execute "startinsert!"
   else
     execute "startinsert"
@@ -78,11 +76,10 @@ endfunction
 "
 " @param {string}   a:quote_character Quote character / クオート文字 
 " @param {integer}  a:current_col     current cursor position / 現在のカーソル位置
-" @param {integer}  a:last_col        last character position this line / 現在の行の最後の文字の位置 
 "
 " @return {bool} v:true: need update cursor position for after routine / 以後の処理に対してカーソル位置情報の更新を要求
 ""
-function! s:backward_completion(quote_character, current_col, last_col) abort "{{{1
+function! s:backward_completion(quote_character, current_col) abort "{{{1
   execute "normal! a" . a:quote_character . "\<Esc>"
   call search(' ', 'b', line('.'))
 
@@ -94,6 +91,7 @@ function! s:backward_completion(quote_character, current_col, last_col) abort "{
   call search(a:quote_character, '', line('.'))
 
   echon 'backward'
+  return v:false
 "}}}
 endfunction
 
@@ -103,11 +101,10 @@ endfunction
 "
 " @param {string}   a:quote_character Quote character / クオート文字 
 " @param {integer}  a:current_col     current cursor position / 現在のカーソル位置
-" @param {integer}  a:last_col        last character position this line / 現在の行の最後の文字の位置 
 "
 " @return {bool} v:true: need update cursor position for after routine / 以後の処理に対してカーソル位置情報の更新を要求
 ""
-function! s:forward_completion(quote_character, current_col, last_col) abort "{{{1
+function! s:forward_completion(quote_character, current_col) abort "{{{1
   let l:mode_first = a:current_col == 1 ? "i" : "a"
   execute "normal! " . l:mode_first . a:quote_character . "\<Esc>"
   call search(' ', '', line('.'))
@@ -117,8 +114,7 @@ function! s:forward_completion(quote_character, current_col, last_col) abort "{{
   let l:mode_last = l:result ? "A" : "i"
   execute "normal! " . l:mode_last . a:quote_character . "\<Esc>"
 
-  echo a:current_col . "_" . l:new_col
-  "echon 'forward'
+  echon 'forward'
   return l:result
 "}}}
 endfunction
