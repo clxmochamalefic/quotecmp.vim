@@ -5,6 +5,7 @@
 下記の設定例のように設定を記述すると、同じクオート文字を二度入力することで任意のキーワードを任意のクオートで囲むことができます
 
 please write your vim preference file feel below (|quotecmp-preference-example|)
+
 if set the preference, this plugin exec quoting any word
 
 e.g.
@@ -20,9 +21,9 @@ aaaa bbbb
 after
 
 ```
-``aaaa`` bbbb
-      ^
-      (cursor here)
+`aaaa` bbbb
+     ^
+     (cursor here)
 ```
 
 ## preference example
